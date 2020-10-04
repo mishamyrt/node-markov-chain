@@ -4,14 +4,14 @@ const { readFile, readdir } = promises
 
 /**
  * Reads single UTF-8 encoded file
- * @param dir — Source directory
+ * @param dir - Source directory
  */
 const readTextFile = (path: string) =>
   readFile(path, { encoding: 'utf-8' })
 
 /**
  * Reads all files from directory
- * @param dir — Source directory
+ * @param dir - Source directory
  */
 export const readFiles = (dir: string) =>
   readdir(dir)

@@ -2,19 +2,21 @@ import { Dict, Pair } from './types'
 
 /**
  * Splits text by words
- * @param s — Input string
+ * @param s - Input string
  */
 const getWords = (s: string) => s
   .replace(/\n/gi, ' ')
+  .replace(/,/gi, ' ,')
   .replace(/\s\s\s/gi, '  ')
   .replace(/\s\s/gi, ' ')
+  .replace(/"/gi, ' ')
   .split(' ')
   .map(i => i.trim())
   .filter(Boolean)
 
 /**
  * Generates dict from text
- * @param s — Input string
+ * @param s - Input string
  */
 export const parseText = (s: string) =>
   generateDict(
@@ -42,7 +44,7 @@ export const merge = (dicts: Dict[]): Dict => {
 
 /**
  * Generates dict from pairs
- * @param it — Pairs generator
+ * @param it - Pairs generator
  */
 const generateDict = (it: Generator<Pair>): Dict => {
   const dict = {
@@ -50,7 +52,7 @@ const generateDict = (it: Generator<Pair>): Dict => {
     chain: {}
   } as Dict
   for (const [x, y] of it) {
-    if (x.substr(-1) === '.') {
+    if (x.substr(-1) === '.' && y !== '-') {
       dict.first.push(y)
       continue
     }
@@ -65,7 +67,7 @@ const generateDict = (it: Generator<Pair>): Dict => {
 
 /**
  * Returns pairs generator
- * @param words — Words array
+ * @param words - Words array
  */
 function * createPairs (words: string[]): Generator<Pair> {
   let i = 0
