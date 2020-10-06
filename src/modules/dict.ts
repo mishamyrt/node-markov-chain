@@ -1,25 +1,14 @@
+import { normalize, splitWords } from './string'
 import { Dict, Pair } from './types'
-
-// NOTE: Symbols that should be removed for better chaining
-const removeRe = RegExp(`${[
-/* eslint-disable no-useless-escape */
-  '\n',
-  '\s+',
-  '-|–|—',
-  '«|»|„|”|"'
-/* eslint-enable no-useless-escape */
-].join('|')}`, 'gi')
 
 /**
  * Splits text by words
  * @param s - Input string
  */
-const getWords = (s: string) => s
-  .replace(removeRe, ' ')
-  .replace(/\s\./gi, '.')
-  .split(' ')
-  .map(i => i.trim())
-  .filter(Boolean)
+const getWords = (s: string) =>
+  splitWords(
+    normalize(s)
+  ).filter(Boolean)
 
 /**
  * Generates dict from text
