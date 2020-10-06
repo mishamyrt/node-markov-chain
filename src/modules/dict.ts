@@ -7,6 +7,9 @@ import { Dict, Pair } from './types'
 const getWords = (s: string) => s
   .replace(/\n/gi, ' ')
   .replace(/\s+/gi, ' ')
+  .replace(/-|–|—/gi, ' ')
+  .replace(/«|»|„|”/gi, '"')
+  .replace(/\s\./gi, '.')
   .replace(/"/gi, ' ')
   .split(' ')
   .map(i => i.trim())
