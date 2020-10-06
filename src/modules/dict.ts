@@ -44,6 +44,19 @@ export const merge = (dicts: Dict[]): Dict => {
 }
 
 /**
+ * Defines if word can be first
+ * @param w — Word
+ */
+const canBeFirst = (w: string) =>
+  RegExp(/А-Я/).test(w.substr(0, 1))
+
+/**
+ * Defines if second word comes after dot sign
+ */
+const sentenceEnd = ([x, y]: Pair) =>
+  x.substr(-1) === '.' && y !== '-'
+
+/**
  * Generates dict from pairs
  * @param it - Pairs generator
  */
@@ -53,7 +66,7 @@ const generateDict = (it: Generator<Pair>): Dict => {
     chain: {}
   } as Dict
   for (const [x, y] of it) {
-    if (x.substr(-1) === '.' && y !== '-') {
+    if (sentenceEnd([x, y]) || canBeFirst(y)) {
       dict.first.push(y)
       continue
     }
