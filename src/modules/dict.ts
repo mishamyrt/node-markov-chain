@@ -1,16 +1,22 @@
 import { Dict, Pair } from './types'
 
+/* eslint-disable no-useless-escape */
+// NOTE: Symbols that should be removed for better chaining
+const removeRe = RegExp(`${[
+  '\n',
+  '\s+',
+  '-|–|—',
+  '«|»|„|”|"'
+].join('|')}`, 'gi')
+/* eslint-enable no-useless-escape */
+
 /**
  * Splits text by words
  * @param s - Input string
  */
 const getWords = (s: string) => s
-  .replace(/\n/gi, ' ')
-  .replace(/\s+/gi, ' ')
-  .replace(/-|–|—/gi, ' ')
-  .replace(/«|»|„|”/gi, '"')
+  .replace(removeRe, ' ')
   .replace(/\s\./gi, '.')
-  .replace(/"/gi, ' ')
   .split(' ')
   .map(i => i.trim())
   .filter(Boolean)
