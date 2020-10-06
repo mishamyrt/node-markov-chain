@@ -1,14 +1,14 @@
 import { Dict, Pair } from './types'
 
-/* eslint-disable no-useless-escape */
 // NOTE: Symbols that should be removed for better chaining
 const removeRe = RegExp(`${[
+/* eslint-disable no-useless-escape */
   '\n',
   '\s+',
   '-|–|—',
   '«|»|„|”|"'
-].join('|')}`, 'gi')
 /* eslint-enable no-useless-escape */
+].join('|')}`, 'gi')
 
 /**
  * Splits text by words
