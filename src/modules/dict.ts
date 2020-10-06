@@ -23,15 +23,18 @@ export const parseText = (s: string) =>
  * Merges dicts
  */
 export const merge = (dicts: Dict[]): Dict => {
-  const result = { ...dicts[0] } as Dict
-  for (let i = 1; i < dicts.length; i++) {
-    const words = Object.keys(dicts[i].chain)
-    result.first.push(...dicts[i].first)
-    for (let j = 0; j < words.length; j++) {
-      if (result.chain[words[j]]) {
-        result.chain[words[j]].push(...dicts[i].chain[words[j]])
+  const result = {
+    first: [],
+    chain: {}
+  } as Dict
+  for (const dict of dicts) {
+    result.first.push(...dict.first)
+    const words = Object.keys(dict.chain)
+    for (const word of words) {
+      if (result.chain[word]) {
+        result.chain[word].push(...dict.chain[word])
       } else {
-        result.chain[words[j]] = dicts[i].chain[words[j]]
+        result.chain[word] = dict.chain[word]
       }
     }
   }
