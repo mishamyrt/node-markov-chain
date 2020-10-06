@@ -27,6 +27,7 @@ export const merge = (dicts: Dict[]): Dict => {
     first: [],
     chain: {}
   } as Dict
+
   for (const dict of dicts) {
     result.first.push(...dict.first)
     const words = Object.keys(dict.chain)
