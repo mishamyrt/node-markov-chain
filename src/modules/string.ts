@@ -5,7 +5,6 @@ const regi = (re: string | RegExp) => RegExp(re, 'gi')
 
 /* eslint-disable no-useless-escape */
 const removeRe = regi(`${[
-    '\n',
     '\s+',
     '-|–|—',
     '«|»|„|”|"'
@@ -18,6 +17,7 @@ const spaceDotRe = regi('\s\.')
  * Normalizes text before parsing
  */
 export const normalize = (t: string) => t
+  .replace(regi('\n'), ' ')
   // NOTE: Remove characters that will make it harder to chain words.
   .replace(removeRe, '')
   // NOTE: Remove the space before the dot.
